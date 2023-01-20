@@ -1,19 +1,31 @@
 {
-    "name": "wsp1-node-forum",
-    "version": "1.0.0",
-    "description": "",
-    "main": "app.js",
-    "scripts": {
-        "start": "nodemon -e njk app.js"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "dotenv": "^16.0.3",
-        "express": "^4.18.2",
-        "mysql2": "^2.3.3",
-        "nodemon": "^2.0.20",
-        "nunjucks": "^3.2.3"
-    }
+  "name": "wsp1-node-forum",
+  "version": "1.0.0",
+  "description": "## Vad ska du göra?",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon -e njk,js app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20",
+    "nunjucks": "^3.2.3"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hjalmar-Lundmark/wsp1-node-forum.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hjalmar-Lundmark/wsp1-node-forum/issues"
+  },
+  "homepage": "https://github.com/Hjalmar-Lundmark/wsp1-node-forum#readme"
 }
