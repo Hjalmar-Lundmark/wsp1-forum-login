@@ -21,16 +21,16 @@ I den här beskrivningen så är namn på svenska, men i databasen så är det e
 För att ändra i tabellen så behöver vi skriva SQL frågor för att göra detta.
 
 ```sql
-ALTER TABLE ja15forum ADD author VARCHAR(255) NOT NULL;
-ALTER TABLE ja15forum ADD title VARCHAR(255) NOT NULL;
-ALTER TABLE ja15forum ADD content TEXT NOT NULL;
-ALTER TABLE ja15forum ADD createdAt DATETIME DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE DITT_TABELL_NAMN ADD author VARCHAR(255) NOT NULL;
+ALTER TABLE DITT_TABELL_NAMN ADD title VARCHAR(255) NOT NULL;
+ALTER TABLE DITT_TABELL_NAMN ADD content TEXT NOT NULL;
+ALTER TABLE DITT_TABELL_NAMN ADD createdAt DATETIME DEFAULT CURRENT_TIMESTAMP;
 ```
 
-För att inspektera tabellen med sql så kan du använda 
+För att inspektera tabellen med sql så kan du använda frånga `DESCRIBE`
 
 ```sql
-DESCRIBE ja15forum;
+DESCRIBE DITT_TABELL_NAMN;
 ```
 
 ![Table image](assets/describe-table.png)
@@ -39,11 +39,11 @@ Tabellen för forumet är nu klar och nästa steg är att fylla den med data.
 
 ### Skapa data
 
-Skapa data, använd antingen Tableplus eller så skriver du sql-fråga.
-Testa båda!
+Skapa data, du kan använda Tableplus eller skriva en sql-fråga.
+**Testa båda!**
 
 ```sql
-INSERT INTO ja15forum (author, title, content) VALUES ('Jens', 'Hej', 'Detta är ett test');
+INSERT INTO DITT_TABELL_NAMN (author, title, content) VALUES ('Jens', 'Hej', 'Detta är ett test');
 ```
 
 ### Visa data
@@ -51,7 +51,9 @@ INSERT INTO ja15forum (author, title, content) VALUES ('Jens', 'Hej', 'Detta är
 För att välja, visa data från en SQL databas så används select. Du väljer innehållet och databasen svarar med data.
 
 ```sql
-SELECT * FROM ja15forum;
+SELECT * FROM DITT_TABELL_NAMN;
 ```
+
+**Starta din server och se till att allt fungerar!**
 
 [Del 4](part-4.md)
