@@ -3,19 +3,17 @@
 
 
 <form action="/new" method="post">
+    <h1>Make a Post</h1>
     <label for="author">Författare</label>
     <select name="author" id="author">
         {% for user in users %}
             <option value="{{ user.id }}">{{ user.name }}</option>
         {% endfor %}
     </select>
-    <br>
     <label for="title">Titel</label>
     <input type="text" name="title" id="title">
-    <br>
     <label for="content">Innehåll</label>
-    <textarea name="content" id="content" cols="30" rows="10"></textarea>
-    <br>
+    <textarea name="content" id="content" rows="10"></textarea>
     <button type="submit">Skicka</button>
 </form>
 
