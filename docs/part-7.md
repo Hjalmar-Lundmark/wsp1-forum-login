@@ -1,34 +1,22 @@
+# Del 6 - Databasdesign, relation och normalisering
 
-## Hämta alla inlägg med författare i node
+- [ ] Snygga till och få allt att fungera
 
-Uppdatera SQL frågan i index routen.
+## Ta en paus från serverkoden
 
-## Posta nya inlägg med författare
+Förhoppningsvis så fungerar din server nu och du kan köra den. Den hämtar poster från databasen, eventuellt med författare, men kanske utan. Det är okej.
 
-Uppdatera SQL frågan i new routen.
+Förmodligen ser din sida ut som något katten släpat upp ur ett dike, det är så det är med enbart HTML.
 
-## Uppdatera formuläret
+Nu är det dock dags att köra lite repetition från tidigare delar i kursen.
 
-Uppdatera formuläret i new.njk så att författaren är en dropdown.
+- Fixa dina templater och navigation, jobba med NJK
+- Fixa css.
+    - Centrerad layout troligast
+    - Navigation, burgare?
+- Design och tillgänglighet
+    - Färger
+    - Typsnitt
+    - Bilder
 
-```html
-<label for="author">Författare</label>
-<select name="author" id="author">
-    {% for user in users %}
-        <option value="{{ user.id }}">{{ user.name }}</option>
-    {% endfor %}
-</select>
-```
-
-Uppdatera routen för att hämta alla användare.
-
-```js
-router.get('/new', async function (req, res, next) {
-    const [users] = await promisePool.query("SELECT * FROM ja15users");
-    res.render('new.njk', {
-        title: 'Nytt inlägg',
-        users,
-    });
-});
-```
 [Del 8](part-8.md)

@@ -15,37 +15,38 @@ Att spara författare som strängar bryter mot den fösta normalformen, att spar
 ## Skapa en ny tabell
 
 ```sql
-CREATE TABLE ja15users (
+CREATE TABLE DITT_ID_users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 ```
 
-## Ändra på tabellen ja15forum
+## Ändra på forum-tabellen
 
-Lägg till en ny kolumn för att spara referensen till författaren, authorId.
-Ta sedan bort kolumnen author.
+Lägg till en ny kolumn för att spara referensen till författaren, `authorId`.
+Ta sedan bort kolumnen `author`.
 
 ```sql
-ALTER TABLE ja15forum ADD COLUMN authorId INT;
-ALTER TABLE ja15forum DROP COLUMN author;
+ALTER TABLE DITT_ID_forum ADD COLUMN authorId INT;
+ALTER TABLE DITT_ID_forum DROP COLUMN author;
 ```
 
+Detta förutsätter att du har ett `id` från en användare när du skapar nya poster. Du kan sätta det till 1 så länge (en referens till den första användaren i tabellen users).
 
 ## Skapa en ny post
 
 Eftersom du nu har en tabell för användare så behöver du skapa en användare på ett eller annat sätt innan du kan skapa ett inlägg.
 
 ```sql
-INSERT INTO ja15users (name) VALUES ('Jens');
+INSERT INTO DITT_ID_users (name) VALUES ('Dittnamn');
 ```
 
 ## Skapa en ny post med referens
 
-Sedan används denna användare för att skapa ett inlägg.
+Sedan används denna användare för att skapa ett inlägg. Här ser du att användaren med id 1 används.
 
 ```sql
-INSERT INTO ja15forum (authorId, title, content) VALUES (1, 'Hej', 'Detta är ett test');
+INSERT INTO DITT_ID_forum (authorId, title, content) VALUES (1, 'Hej', 'Detta är ett test');
 ```
 
 ## Hämta alla inlägg med författare
@@ -53,8 +54,8 @@ INSERT INTO ja15forum (authorId, title, content) VALUES (1, 'Hej', 'Detta är et
 Med relation kan vi nu använda JOIN för att välja data från båda tabellerna.
 
 ```sql
-SELECT ja15forum.*, ja15users.name FROM ja15forum
-JOIN ja15users ON ja15forum.authorId = ja15users.id;
+SELECT DITT_ID_forum.*, DITT_ID_users.name FROM DITT_ID_forum
+JOIN DITT_ID_users ON DITT_ID_forum.authorId = DITT_ID_users.id;
 ```
 
 [Del 7](part-7.md)
