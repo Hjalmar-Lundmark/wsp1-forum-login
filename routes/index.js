@@ -13,13 +13,13 @@ const promisePool = pool.promise();
 
 router.get('/', async function (req, res, next) {
     const [rows] = await promisePool.query("SELECT * FROM hl21forum");
-    res.json({ rows });
-    /*
+    //res.json({ rows });
+    
     res.render('index.njk', {
         rows: rows,
         title: 'Forum',
     });
-    */
+    
 });
 
 

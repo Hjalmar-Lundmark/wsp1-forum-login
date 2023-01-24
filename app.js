@@ -8,6 +8,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const indexRouter = require('./routes/index');
 
+app.use(express.static('public'))
+
+
 nunjucks.configure('views', {
     autoescape: true,
     express: app,
