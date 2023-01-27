@@ -11,15 +11,15 @@ const promisePool = pool.promise();
 
 
 router.get('/', async function (req, res, next) {
-    const [rows] = await promisePool.query("SELECT * FROM hl21forum");
-    const [user] = await promisePool.query("SELECT * FROM hl21users");
-    const [comments] = await promisePool.query("SELECT * FROM hl21comments");
+    const [rows] = await promisePool.query("SELECT * FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id");
+    //const [user] = await promisePool.query("SELECT * FROM hl21users");
+    //const [comments] = await promisePool.query("SELECT * FROM hl21comments");
     //res.json({ rows });
     
     res.render('index.njk', {
         rows: rows,
-        user,
-        comments,
+        //user,
+        //comments,
         title: 'Forum',
     });
     
@@ -86,6 +86,7 @@ router.get('/comment', async function (req, res, next) {
     });
 });
 
+//maybe app.get
 router.get('/post/:id', async (req, res) => {
     const postId = req.params.id;
     //const post = await getPost(postId); // skriv en funktion som hämtar en post på id eller stoppa in kod för detta här. Använd WHERE i din SQL.

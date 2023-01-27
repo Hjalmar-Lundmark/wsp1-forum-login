@@ -5,12 +5,11 @@
 <ul>
     {% for row in rows %}
         <li>
-            Post {{ row.id }}: User: {{ row.authorId }}
-            <h3>{{ row.title }}</h3> 
+            User: {{ row.name }}
+            <h2>{{ row.title }}</h2> 
             <p>{{ row.content }}</p> 
-            <h5>Posted {{ row.createdAt }}</h5>
+            <h6>Posted {{ row.createdAt }}</h6>
         </li>
     {% endfor %}
 </ul>
-<img src="images/doggo.jpg" alt="doggo">
 {% endblock %}

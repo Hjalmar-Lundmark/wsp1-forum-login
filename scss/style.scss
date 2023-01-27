@@ -7,10 +7,14 @@ body {
 main {
     max-width: min(80ch, 100vw - 1rem);
     margin-inline: auto;
-    margin-bottom: 1rem;
 }
 
-h5 {
+.container {
+    max-width: min(80ch, 100vw - 1rem);
+    margin-inline: auto;
+}
+
+h5, h6 {
     margin: 0;
 }
 
@@ -38,7 +42,7 @@ nav > ul {
 
 .navbar {
     width: 100%;
-    background-color: white;
+    background-color: lightskyblue;
     margin-bottom: 1rem;
     
     &__inner {
@@ -83,8 +87,8 @@ img {
     display: block;
     max-width: 100%;
     height: auto;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .show {
@@ -116,4 +120,14 @@ form {
 
 select, input, textarea {
     min-width: 50%;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    padding-bottom: 1rem;
+
+    > * > p > a {
+        color: lightblue;
+    }
 }
