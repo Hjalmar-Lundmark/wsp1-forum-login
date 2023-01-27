@@ -235,6 +235,8 @@ footer {
   background-color: black;
   color: white;
   padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  margin-top: 1rem;
 }
 footer > * > p > a {
   color: lightblue;
