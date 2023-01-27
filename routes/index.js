@@ -9,14 +9,17 @@ const pool = mysql.createPool({
 });
 const promisePool = pool.promise();
 
-//This gives a error after ~15 sec, meaning site works until 'cannot set headers after they are sent ...'
 
 router.get('/', async function (req, res, next) {
     const [rows] = await promisePool.query("SELECT * FROM hl21forum");
+    const [user] = await promisePool.query("SELECT * FROM hl21users");
+    const [comments] = await promisePool.query("SELECT * FROM hl21comments");
     //res.json({ rows });
     
     res.render('index.njk', {
         rows: rows,
+        user,
+        comments,
         title: 'Forum',
     });
     
@@ -60,9 +63,36 @@ router.post('/new', async function (req, res, next) {
 router.get('/new', async function (req, res, next) {
     const [users] = await promisePool.query("SELECT * FROM hl21users");
     res.render('new.njk', {
-        title: 'Nytt inlägg',
+        title: 'Make a Post',
         users,
     });
+});
+
+
+router.post('/comment', async function (req, res, next) {
+    const { author, post, content } = req.body;
+    const [rows] = await promisePool.query("INSERT INTO hl21comments (authorId, postId, content) VALUES (?, ?, ?)", [author, post, content]);
+    //alert("Det skickades (nog)");
+    res.redirect('/');
+});
+
+router.get('/comment', async function (req, res, next) {
+    const [users] = await promisePool.query("SELECT * FROM hl21users");
+    const [posts] = await promisePool.query("SELECT * FROM hl21forum");
+    res.render('comment.njk', {
+        title: 'Make a Comment',
+        users,
+        posts,
+    });
+});
+
+router.get('/post/:id', async (req, res) => {
+    const postId = req.params.id;
+    //const post = await getPost(postId); // skriv en funktion som hämtar en post på id eller stoppa in kod för detta här. Använd WHERE i din SQL.
+    const post = await promisePool.query("SELECT * FROM hl21forum WHERE id=" + postId + "");
+    //const comments = await getComments(postId); // Om du ska hämta comments kopplad till postens ID.
+    const comments = await promisePool.query("SELECT * FROM hl21comments WHERE postId=" + postId + "");
+    res.render('post.njk', { post, comments }); // rendera post.njk med post och comments som variabler.
 });
 
 
