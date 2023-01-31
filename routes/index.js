@@ -11,7 +11,7 @@ const promisePool = pool.promise();
 
 
 router.get('/', async function (req, res, next) {
-    const [rows] = await promisePool.query("SELECT * FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id");
+    const [rows] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id");
     //res.json({ rows });
     
     res.render('index.njk', {
@@ -84,14 +84,12 @@ router.get('/comment', async function (req, res, next) {
     });
 });
 
-//maybe app.get
 router.get('/post/:id', async (req, res) => {
     const postId = req.params.id;
-    //const post = await getPost(postId); // skriv en funktion som hämtar en post på id eller stoppa in kod för detta här. Använd WHERE i din SQL.
-    const post = await promisePool.query("SELECT * FROM hl21forum WHERE id=" + postId + "");
-    //const comments = await getComments(postId); // Om du ska hämta comments kopplad till postens ID.
-    const comments = await promisePool.query("SELECT * FROM hl21comments WHERE postId=" + postId + "");
-    res.render('post.njk', { post, comments }); // rendera post.njk med post och comments som variabler.
+    const post = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.id=" + postId + " AND hl21forum.authorId = hl21users.id"); //Works
+    const comments = await promisePool.query("SELECT hl21comments.*, hl21users.name FROM hl21comments JOIN hl21users WHERE postId=" + postId + " AND hl21comments.authorId = hl21users.id");
+
+    res.render('post.njk', { post, comments });
 });
 
 

@@ -9,8 +9,9 @@
             <h2>{{ row.title }}</h2> 
             <p>{{ row.content }}</p> 
             <h6>Posted {{ row.createdAt }}</h6>
-            <a href="/post/21">Comments</a>
+            <a href="/post/{{ row.id }}">Comments</a>
         </li>
     {% endfor %}
+    <img src="/images/doggo.jpg" alt="doggo">
 </ul>
 {% endblock %}

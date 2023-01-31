@@ -2,15 +2,17 @@
 {% block  content %}
 
 <div class="post">
-    User: {{ post[0][0].authorId }}{{ post[0][0].name }}
+    User: {{ post[0][0].name }}
     <h2>{{ post[0][0].title }}</h2> 
     <p>{{ post[0][0].content }}</p> 
     <h6>Posted {{ post[0][0].createdAt }}</h6>
 </div>
-{% for comments in comments %}
+
+{% for row in comments[0] %}
 <div class="comment">
-    User: {{ comments[0].authorId }}
-    <p>{{ comments[0].content }}</p>
+    User: {{ row.name }}
+    <p>{{ row.content }}</p>
+    <h6>Posted {{ row.date }}</h6>
 </div>
 {% endfor %}
 {% endblock %}
