@@ -115,6 +115,9 @@ select {
 }
 body {
   background-color: lightgreen;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 main {
@@ -131,27 +134,6 @@ h5, h6 {
   margin: 0;
 }
 
-/*
-nav {
-    width: 100%;
-    background-color: white;
-    padding: 1rem;
-    margin-bottom: 1rem;
-}
-
-nav > ul {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-    padding: 0;
-    max-width: min(80ch, 100vw - 1rem);
-    margin-inline: auto;
-    justify-content: flex-end;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-*/
 .navbar {
   width: 100%;
   background-color: lightskyblue;
@@ -240,6 +222,15 @@ footer {
 }
 footer > * > p > a {
   color: lightblue;
+}
+
+.post {
+  border: solid 2px black;
+}
+
+.comment {
+  border: solid 2px black;
+  margin-left: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */

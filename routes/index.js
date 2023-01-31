@@ -12,8 +12,6 @@ const promisePool = pool.promise();
 
 router.get('/', async function (req, res, next) {
     const [rows] = await promisePool.query("SELECT * FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id");
-    //const [user] = await promisePool.query("SELECT * FROM hl21users");
-    //const [comments] = await promisePool.query("SELECT * FROM hl21comments");
     //res.json({ rows });
     
     res.render('index.njk', {
