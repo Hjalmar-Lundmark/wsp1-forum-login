@@ -1,0 +1,14 @@
+{% extends "layout.njk" %}
+{% block content %}
+
+<h1>Users</h1>
+<ul>
+    {% for row in rows %}
+    <li>
+        <div class="postContent">
+            <a href="/user/{{ row.id }}">{{ row.name }}</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

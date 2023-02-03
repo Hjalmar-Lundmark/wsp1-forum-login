@@ -1,17 +1,18 @@
 {% extends "layout.njk" %}
-{% block  content %}
+{% block content %}
 
 <h1>Posts</h1>
 <ul>
     {% for row in rows %}
-        <li>
-            User: {{ row.name }}
-            <h2>{{ row.title }}</h2> 
-            <p>{{ row.content }}</p> 
+    <li>
+        <div class="postContent">
+            <p>User: <a href="/user/{{ row.authorId }}">{{ row.name }}</a></p>
+            <h2>{{ row.title }}</h2>
+            <p>{{ row.content }}</p>
             <h6>Posted {{ row.createdAt }}</h6>
             <a href="/post/{{ row.id }}">Comments</a>
-        </li>
+        </div>
+    </li>
     {% endfor %}
-    <img src="/images/doggo.jpg" alt="doggo">
 </ul>
 {% endblock %}

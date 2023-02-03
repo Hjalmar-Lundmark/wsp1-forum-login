@@ -114,7 +114,7 @@ select {
   }
 }
 body {
-  background-color: lightgreen;
+  background-color: darkblue;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -123,6 +123,9 @@ body {
 main {
   max-width: min(80ch, 100vw - 1rem);
   margin-inline: auto;
+}
+main > h1 {
+  color: white;
 }
 
 .container {
@@ -195,16 +198,18 @@ main > ul {
 }
 main > ul > li {
   list-style: none;
-  border: solid 2px black;
+  border: solid 3px red;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  background-color: white;
 }
 
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: solid 2px black;
+  border: solid 3px red;
+  background-color: lightgray;
 }
 
 select, input, textarea {
@@ -223,12 +228,19 @@ footer > * > p > a {
 }
 
 .post {
-  border: solid 2px black;
+  border: solid 3px red;
+  background-color: white;
 }
 
 .comment {
-  border: solid 2px black;
+  border: solid 3px red;
   margin-left: 2rem;
+  background-color: white;
+  margin-top: 0.5rem;
+}
+
+.postContent {
+  margin: 0.5rem;
 }
 
 /*# sourceMappingURL=style.css.map */

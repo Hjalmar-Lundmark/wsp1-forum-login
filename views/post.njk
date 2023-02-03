@@ -1,18 +1,22 @@
 {% extends "layout.njk" %}
-{% block  content %}
+{% block content %}
 
 <div class="post">
-    User: {{ post[0][0].name }}
-    <h2>{{ post[0][0].title }}</h2> 
-    <p>{{ post[0][0].content }}</p> 
-    <h6>Posted {{ post[0][0].createdAt }}</h6>
+    <div class="postContent">
+        <p>User: <a href="/user/{{ post.authorId }}">{{ post.name }}</a></p>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <h6>Posted {{ post.createdAt }}</h6>
+    </div>
 </div>
 
-{% for row in comments[0] %}
+{% for row in comments %}
 <div class="comment">
-    User: {{ row.name }}
-    <p>{{ row.content }}</p>
-    <h6>Posted {{ row.date }}</h6>
+    <div class="postContent">
+        <p>User: <a href="/user/{{ row.authorId }}">{{ row.name }}</a></p>
+        <p>{{ row.content }}</p>
+        <h6>Posted {{ row.date }}</h6>
+    </div>
 </div>
 {% endfor %}
 {% endblock %}

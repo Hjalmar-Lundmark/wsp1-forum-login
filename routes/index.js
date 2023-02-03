@@ -86,10 +86,14 @@ router.get('/comment', async function (req, res, next) {
 
 router.get('/post/:id', async (req, res) => {
     const postId = req.params.id;
-    const post = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.id=" + postId + " AND hl21forum.authorId = hl21users.id"); //Works
-    const comments = await promisePool.query("SELECT hl21comments.*, hl21users.name FROM hl21comments JOIN hl21users WHERE postId=" + postId + " AND hl21comments.authorId = hl21users.id");
+    const [post] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.id=? AND hl21forum.authorId = hl21users.id", postId); //Works
+    const [comments] = await promisePool.query("SELECT hl21comments.*, hl21users.name FROM hl21comments JOIN hl21users WHERE postId=? AND hl21comments.authorId = hl21users.id", postId);
 
-    res.render('post.njk', { post, comments });
+    res.render('post.njk', { 
+        title: 'Post ' + postId,
+        post: post[0], 
+        comments 
+    });
 });
 
 
