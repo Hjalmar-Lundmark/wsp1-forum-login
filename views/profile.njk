@@ -1,0 +1,15 @@
+{% extends "layout.njk" %}
+{% block  content %}
+<main class="container mt-3">
+    <h1>{{ title }}</h1>
+    <div>
+        <p>Hello {{ user }}</p>
+    </div>
+    <form action="/logout" method="POST">
+        <button type="submit" id="logout">Logout</button>
+    </form>
+    <form action="/delete" method="POST">
+        <button type="submit">Delete Account</button>
+    </form>
+</main>
+{% endblock %} 

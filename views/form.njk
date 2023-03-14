@@ -1,0 +1,13 @@
+{% extends "layout.njk" %}
+{% block  content %}
+<h1>{{ title }}</h1>
+<form action="/login" method="POST">
+    <label for="title">Username:</label>
+    <input type="text" name="username" id="username">
+    <label for="title">Password:</label>
+    <input type="password" name="password" id="password">
+    <br>
+    <button type="submit">Login</button>
+</form>
+
+{% endblock %}
