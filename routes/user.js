@@ -21,7 +21,7 @@ router.get('/', async function (req, res, next) {
 
 router.get('/:id', async function (req, res, next) {
     const userNr = req.params.id;
-    const [user] = await promisePool.query("SELECT * FROM hl21users WHERE id=?", userNr);
+    const [user] = await promisePool.query("SELECT hl21users.id, hl21users.name, hl21users.Desc, hl21users.createdAt FROM hl21users WHERE id=?", userNr);
     
     res.render('user.njk', {
         user: user[0],

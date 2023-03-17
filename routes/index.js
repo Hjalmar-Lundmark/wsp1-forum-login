@@ -11,22 +11,22 @@ const promisePool = pool.promise();
 const bcrypt = require('bcrypt');
 var session = require('express-session');
 router.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  LoggedIn: false,
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    LoggedIn: false,
 }));
 // I should probably change this top part and in app.js a bit 
 
 router.get('/', async function (req, res, next) {
-    const [rows] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id");
+    const [rows] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id ORDER BY hl21forum.id DESC");
     //res.json({ rows });
-    
+
     res.render('index.njk', {
         rows: rows,
         title: 'Forum',
     });
-    
+
 });
 
 router.post('/new', async function (req, res, next) {
@@ -36,18 +36,21 @@ router.post('/new', async function (req, res, next) {
 });
 
 router.get('/new', async function (req, res, next) {
-    const [users] = await promisePool.query("SELECT * FROM hl21users");
-    res.render('new.njk', {
-        title: 'Make a Post',
-        users,
-    });
+    if (!req.session.LoggedIn) {
+        return res.redirect('/login');
+    } else {
+        const [users] = await promisePool.query("SELECT hl21users.id, hl21users.name FROM hl21users");
+        res.render('new.njk', {
+            title: 'Make a Post',
+            users,
+        });
+    }
 });
 
 
 router.post('/comment', async function (req, res, next) {
     const { author, post, content } = req.body;
     const [rows] = await promisePool.query("INSERT INTO hl21comments (authorId, postId, content) VALUES (?, ?, ?)", [author, post, content]);
-    //alert("Det skickades (nog)");
     res.redirect('/');
 });
 
@@ -66,31 +69,30 @@ router.get('/post/:id', async (req, res) => {
     const [post] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.id=? AND hl21forum.authorId = hl21users.id", postId); //Works
     const [comments] = await promisePool.query("SELECT hl21comments.*, hl21users.name FROM hl21comments JOIN hl21users WHERE postId=? AND hl21comments.authorId = hl21users.id", postId);
 
-    res.render('post.njk', { 
+    res.render('post.njk', {
         title: 'Post ' + postId,
-        post: post[0], 
-        comments 
+        post: post[0],
+        comments
     });
 });
 
 router.get('/login', function (req, res, next) {
-    res.render('form.njk', { title: 'Login ALC' });
+    if (req.session.LoggedIn) {
+        return res.redirect('/profile');
+    } else {
+        res.render('form.njk', { title: 'Login ALC' });
+    }
 });
 
-//dont use or reuse later
 router.get('/profile', async function (req, res, next) {
-    //console.log(req.session)
-    
-    //const [users] = await promisePool.query("SELECT * FROM unusers WHERE id=?", req.session.userId);
-    //console.log(req.session)
     if (req.session.LoggedIn) {
-        return res.render('profile.njk', {   
-            title: 'Profile', 
-            user: req.session.userId, 
-        }
-        );
+        const [info] = await promisePool.query("SELECT hl21users.id, hl21users.name, hl21users.Desc, hl21users.createdAt FROM hl21users WHERE name=?", req.session.user);
+        return res.render('profile.njk', {
+            title: 'Profile',
+            user: req.session.user,
+            info,
+        });
     } else {
-        
         return res.status(401).send("Access denied");
     }
 });
@@ -98,7 +100,6 @@ router.get('/profile', async function (req, res, next) {
 router.post('/login', async function (req, res, next) {
     const { username, password } = req.body;
     const errors = [];
-    console.log('test');
 
     if (username === "") {
         console.log("Username is Required")
@@ -114,11 +115,9 @@ router.post('/login', async function (req, res, next) {
     if (users.length > 0) {
 
         bcrypt.compare(password, users[0].password, function (err, result) {
-            // result == true logga in, annars buuuu 
             if (result) {
-                //console.log(users[0].id)
-                req.session.userId = username;
-                //req.session.userID = users[0].id; //works?
+                req.session.user = username;
+                //req.session.userId = users[0].id; //works?
                 req.session.LoggedIn = true;
                 return res.redirect('/profile');
             } else {
@@ -132,31 +131,35 @@ router.post('/login', async function (req, res, next) {
     }
 });
 
-router.post('/delete', async function(req, res, next) {
-    if(req.session.LoggedIn) {
+router.post('/delete', async function (req, res, next) {
+    if (req.session.LoggedIn) {
         req.session.LoggedIn = false;
-        await promisePool.query('DELETE FROM hl21users WHERE name=?', req.session.userId);
+        await promisePool.query('DELETE FROM hl21users WHERE name=?', req.session.user);
         res.redirect('/');
     } else {
         return res.status(401).send("Access denied");
     }
 });
 
-router.post('/logout', async function(req, res, next) {
+router.post('/logout', async function (req, res, next) {
     console.log(req.session.LoggedIn);
-    if(req.session.LoggedIn) {
-    req.session.LoggedIn = false;
-    res.redirect('/');
+    if (req.session.LoggedIn) {
+        req.session.LoggedIn = false;
+        res.redirect('/');
     } else {
         return res.status(401).send("Access denied");
     }
 });
 
-router.get('/register', async function(req, res) {
-    res.render('register.njk', { title: 'Register' })
+router.get('/register', async function (req, res) {
+    if (req.session.LoggedIn) {
+        return res.redirect('/profile');
+    } else {
+        res.render('register.njk', { title: 'Register' })
+    }
 });
 
-router.post('/register', async function(req, res) {
+router.post('/register', async function (req, res) {
     const { username, password, passwordConfirmation } = req.body;
     const errors = [];
 
@@ -168,7 +171,7 @@ router.post('/register', async function(req, res) {
         console.log("Password is Required")
         errors.push("Password is Required")
         return res.json(errors)
-    } else if(password !== passwordConfirmation ){
+    } else if (password !== passwordConfirmation) {
         console.log("Passwords do not match")
         errors.push("Passwords do not match")
         return res.json(errors)
@@ -183,8 +186,6 @@ router.post('/register', async function(req, res) {
     }
 
     await bcrypt.hash(password, 10, async function (err, hash) {
-
-        console.log(hash);
         const [rows] = await promisePool.query('INSERT INTO hl21users (name, password) VALUES (?, ?)', [username, hash])
         res.redirect('/login');
 
@@ -193,14 +194,9 @@ router.post('/register', async function(req, res) {
 
 router.get('/crypt/:pwd', async function (req, res, next) {
     const pwd = req.params.pwd;
-
     await bcrypt.hash(pwd, 10, function (err, hash) {
-
-        console.log(hash);
-        //return res.json(hash);
         return res.json({ hash });
     });
-
 });
 
 
