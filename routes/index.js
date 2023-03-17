@@ -9,7 +9,14 @@ const pool = mysql.createPool({
 });
 const promisePool = pool.promise();
 const bcrypt = require('bcrypt');
-// I should probably change this top part and in app.js a bit
+var session = require('express-session');
+router.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  LoggedIn: false,
+}));
+// I should probably change this top part and in app.js a bit 
 
 router.get('/', async function (req, res, next) {
     const [rows] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id");
@@ -102,7 +109,7 @@ router.post('/login', async function (req, res, next) {
         errors.push("Password is Required")
         return res.json(errors)
     }
-    const [users] = await promisePool.query("SELECT * FROM unusers WHERE name=?", username);
+    const [users] = await promisePool.query("SELECT * FROM hl21users WHERE name=?", username);
     //console.log(users)
     if (users.length > 0) {
 
@@ -128,7 +135,7 @@ router.post('/login', async function (req, res, next) {
 router.post('/delete', async function(req, res, next) {
     if(req.session.LoggedIn) {
         req.session.LoggedIn = false;
-        await promisePool.query('DELETE FROM unusers WHERE name=?', req.session.userId);
+        await promisePool.query('DELETE FROM hl21users WHERE name=?', req.session.userId);
         res.redirect('/');
     } else {
         return res.status(401).send("Access denied");
@@ -166,7 +173,7 @@ router.post('/register', async function(req, res) {
         errors.push("Passwords do not match")
         return res.json(errors)
     }
-    const [users] = await promisePool.query("SELECT * FROM unusers WHERE name=?", username);
+    const [users] = await promisePool.query("SELECT * FROM hl21users WHERE name=?", username);
     //console.log(users)
 
     if (users.length > 0) {
@@ -178,7 +185,7 @@ router.post('/register', async function(req, res) {
     await bcrypt.hash(password, 10, async function (err, hash) {
 
         console.log(hash);
-        const [rows] = await promisePool.query('INSERT INTO unusers (name, password) VALUES (?, ?)', [username, hash])
+        const [rows] = await promisePool.query('INSERT INTO hl21users (name, password) VALUES (?, ?)', [username, hash])
         res.redirect('/login');
 
     });

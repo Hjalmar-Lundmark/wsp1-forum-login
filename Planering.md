@@ -1,10 +1,15 @@
 # Planering
-Det finns inget viktigt här
 
-## To-do list (perhaps not in order)
-1. Make sure login works. 
-2. change post, comment page
-2. Handle errors better. 
-3. Js to remove 'login' button when logged in and remove 'create post' button when not logged in, etc. 
+## Att göra lista (kanske i fel ordning)
+1. Se till att login fungerar. 
+2. Ändra post och comment forms.
+2. Hantera errors bättre. 
+3. Js för att ta bort 'login' knapp när man är inloggad och ta bort 'create post' knapp när användare inte är inloggad, med mera. 
 
-What do I do with the current 'user page' that sucks?
+Vad ska jag göra med den nuvarande 'user page' som suger?
+
+
+## Loggbok
+14/3: Draw.io, skapade repo, började fixa kod. 
+
+17/3: 

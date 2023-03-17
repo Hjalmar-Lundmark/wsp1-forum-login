@@ -1,5 +1,5 @@
 {
-  "name": "wsp1-node-forum",
+  "name": "wsp1-forum-login",
   "version": "1.0.0",
   "description": "## Vad ska du göra?",
   "main": "app.js",
@@ -28,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hjalmar-Lundmark/wsp1-node-forum.git"
+    "url": "git+https://github.com/Hjalmar-Lundmark/wsp1-forum-login.git"
   },
   "bugs": {
-    "url": "https://github.com/Hjalmar-Lundmark/wsp1-node-forum/issues"
+    "url": "https://github.com/Hjalmar-Lundmark/wsp1-forum-login/issues"
   },
-  "homepage": "https://github.com/Hjalmar-Lundmark/wsp1-node-forum#readme"
+  "homepage": "https://github.com/Hjalmar-Lundmark/wsp1-forum-login#readme"
 }
