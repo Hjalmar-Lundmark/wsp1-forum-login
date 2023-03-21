@@ -10,6 +10,7 @@ const pool = mysql.createPool({
 const promisePool = pool.promise();
 const bcrypt = require('bcrypt');
 var session = require('express-session');
+const { response } = require('express');
 router.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -20,48 +21,87 @@ router.use(session({
 
 router.get('/', async function (req, res, next) {
     const [rows] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id ORDER BY hl21forum.id DESC");
-    //res.json({ rows });
 
     res.render('index.njk', {
         rows: rows,
         title: 'Forum',
+        user: req.session.user,
     });
-
 });
 
+router.get('/nav', async function (req, res, next) {
+    res.render('nav.njk', {
+        user: req.session.user,
+        loggedIn: req.session.LoggedIn,
+    })
+})
+
 router.post('/new', async function (req, res, next) {
-    const { author, title, content } = req.body;
-    const [rows] = await promisePool.query("INSERT INTO hl21forum (authorId, title, content) VALUES (?, ?, ?)", [author, title, content]);
-    res.redirect('/new');
+    const { title, content } = req.body;
+    let responseErr = {
+        err: [],
+    }
+
+    if (!title) {
+        responseErr.err.push('Post needs a title');
+    }
+    if (!content) {
+        responseErr.err.push('Post needs content');
+    }
+
+    if (responseErr.err.length === 0) {
+        const [rows] = await promisePool.query("INSERT INTO hl21forum (authorId, title, content) VALUES (?, ?, ?)", [req.session.userId, title, content]);
+        res.redirect('/post/' + rows.insertId + '');
+    } else {
+        res.json(responseErr.err);
+    }
 });
 
 router.get('/new', async function (req, res, next) {
     if (!req.session.LoggedIn) {
         return res.redirect('/login');
     } else {
-        const [users] = await promisePool.query("SELECT hl21users.id, hl21users.name FROM hl21users");
         res.render('new.njk', {
             title: 'Make a Post',
-            users,
+            user: req.session.user,
         });
     }
 });
 
 
 router.post('/comment', async function (req, res, next) {
-    const { author, post, content } = req.body;
-    const [rows] = await promisePool.query("INSERT INTO hl21comments (authorId, postId, content) VALUES (?, ?, ?)", [author, post, content]);
-    res.redirect('/');
+    const { post, content } = req.body;
+    let responseErr = {
+        err: [],
+    }
+
+    if (!title) {
+        responseErr.err.push('Post needs a title');
+    }
+    if (!content) {
+        responseErr.err.push('Post needs content');
+    }
+
+    if (responseErr.err.length === 0) {
+        const [rows] = await promisePool.query("INSERT INTO hl21comments (authorId, postId, content) VALUES (?, ?, ?)", [req.session.userId, post, content]);
+        res.redirect('/post/' + post + '');
+    } else {
+        res.json(responseErr.err);
+    }
 });
 
 router.get('/comment', async function (req, res, next) {
-    const [users] = await promisePool.query("SELECT * FROM hl21users");
-    const [posts] = await promisePool.query("SELECT * FROM hl21forum");
-    res.render('comment.njk', {
-        title: 'Make a Comment',
-        users,
-        posts,
-    });
+    if (!req.session.LoggedIn) {
+        return res.redirect('/login');
+    } else {
+        const [users] = await promisePool.query("SELECT * FROM hl21users");
+        const [posts] = await promisePool.query("SELECT * FROM hl21forum");
+        res.render('comment.njk', {
+            title: 'Make a Comment',
+            users,
+            posts,
+        });
+    }
 });
 
 router.get('/post/:id', async (req, res) => {
@@ -113,11 +153,10 @@ router.post('/login', async function (req, res, next) {
     const [users] = await promisePool.query("SELECT * FROM hl21users WHERE name=?", username);
     //console.log(users)
     if (users.length > 0) {
-
         bcrypt.compare(password, users[0].password, function (err, result) {
             if (result) {
                 req.session.user = username;
-                //req.session.userId = users[0].id; //works?
+                req.session.userId = users[0].id; //works?
                 req.session.LoggedIn = true;
                 return res.redirect('/profile');
             } else {

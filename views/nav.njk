@@ -13,20 +13,26 @@
                     <a href="/">Forum</a>
                 </li>
                 <li>
+                    <a href="/user">Users</a>
+                </li>
+                {% if loggedIn %}
+                <li>
                     <a href="/new">Post</a>
                 </li>
                 <li>
                     <a href="/comment">Comment</a>
                 </li>
                 <li>
-                    <a href="/user">Users</a>
+                    <a href="/profile">{{ user }}</a>
                 </li>
+                {% else %}
                 <li>
                     <a href="/login">Login</a>
                 </li>
                 <li>
                     <a href="/register">Create account</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </div>
