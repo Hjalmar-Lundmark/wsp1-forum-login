@@ -4,12 +4,7 @@
 
 <form action="/comment" method="post">
     <h1>Make a Comment</h1>
-    <label for="author">Author</label>
-    <select name="author" id="author">
-        {% for user in users %}
-            <option value="{{ user.id }}">{{ user.name }}</option>
-        {% endfor %}
-    </select>
+    <label for="author">Logged in as: {{ user }}</label>
     <label for="post">Post</label>
     <select name="post" id="post">
         {% for post in posts %}

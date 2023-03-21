@@ -7,9 +7,10 @@
 - &#9744; Hantera errors bättre. 
 - &#9744; Js i navigation för att ta bort 'login' knapp när man är inloggad och ta bort 'create post' knapp när användare inte är inloggad, med mera. 
 - &#9745; User-info i db
-- &#9744; Delete func för comments&posts
+- &#9744; Delete-func för comments&posts
 
-Vad ska jag göra med den nuvarande 'user page' som suger?
+Vad ska jag göra med den nuvarande 'user page' som suger? 
+Vad ska hända med posts om användaren tar bort sitt konto?
 
 
 ## Loggbok
@@ -17,4 +18,8 @@ Vad ska jag göra med den nuvarande 'user page' som suger?
 
 17/3: Fick login, register och det att fungera, la till `createdAt` och `description` för users i db, ändrade i njk enligt de additionerna. 
 
-21/3: Jag ska fixa post och comment till att man måste vara inloggad. 
+21/3: &#9745;Jag ska fixa post och comment till att man måste vara inloggad. 
+
+Denna lektion har jag: Ändrat i navbar för att vissa olika saker om användaren är inloggad eller inte. Sett till att användare måste vara inloggade för att posta eller kommentera. Många små ändringar. Flyttade `create comment` till under posts. 
+
+Nästa lektion: SASS, gör klar comment, 

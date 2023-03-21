@@ -168,6 +168,7 @@ h5, h6 {
   display: flex;
   gap: 1rem;
   list-style: none;
+  align-items: center;
 }
 .navbar__collapse--show {
   display: block;

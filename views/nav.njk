@@ -20,10 +20,12 @@
                     <a href="/new">Post</a>
                 </li>
                 <li>
-                    <a href="/comment">Comment</a>
+                    <a href="/profile">{{ user }}</a>
                 </li>
                 <li>
-                    <a href="/profile">{{ user }}</a>
+                    <form action="/logout" method="POST">
+                        <button type="submit" id="logout">Logout</button>
+                    </form>
                 </li>
                 {% else %}
                 <li>

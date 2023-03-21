@@ -15,6 +15,8 @@ router.get('/', async function (req, res, next) {
     res.render('users.njk', {
         rows: rows,
         title: 'Users',
+        user: req.session.user,
+        loggedIn: req.session.LoggedIn,
     });
     
 });
@@ -24,8 +26,10 @@ router.get('/:id', async function (req, res, next) {
     const [user] = await promisePool.query("SELECT hl21users.id, hl21users.name, hl21users.Desc, hl21users.createdAt FROM hl21users WHERE id=?", userNr);
     
     res.render('user.njk', {
-        user: user[0],
+        users: user[0],
         title: 'User',
+        user: req.session.user,
+        loggedIn: req.session.LoggedIn,
     });
     
 });
