@@ -17,7 +17,10 @@ router.use(session({
     saveUninitialized: true,
     LoggedIn: false,
 }));
-// I should probably change this top part and in app.js a bit 
+var validator = require('validator');
+let responseErr = {
+    err: [],
+}
 
 router.get('/', async function (req, res, next) {
     const [rows] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id ORDER BY hl21forum.id DESC");
@@ -51,10 +54,23 @@ router.post('/new', async function (req, res, next) {
     }
 
     if (responseErr.err.length === 0) {
-        const [rows] = await promisePool.query("INSERT INTO hl21forum (authorId, title, content) VALUES (?, ?, ?)", [req.session.userId, title, content]);
+        //sanitize
+        const sanitize = (str) => {
+            let temp = str.trim();
+            temp = validator.stripLow(temp);
+            temp = validator.escape(temp);
+            return temp;
+        };
+        if (title) sanitizedTitle = sanitize(title);
+        if (content) sanitizedBody = sanitize(content);
+
+
+        const [rows] = await promisePool.query("INSERT INTO hl21forum (authorId, title, content) VALUES (?, ?, ?)", 
+        [req.session.userId, sanitizedTitle, sanitizedBody]);
         res.redirect('/post/' + rows.insertId + '');
     } else {
-        res.json(responseErr.err);
+        //res.json(responseErr.err);
+        res.redirect('/new');
     }
 });
 
@@ -66,6 +82,7 @@ router.get('/new', async function (req, res, next) {
             title: 'Make a Post',
             user: req.session.user,
             loggedIn: req.session.LoggedIn,
+            error: responseErr, 
         });
     }
 });
@@ -77,15 +94,23 @@ router.post('/comment', async function (req, res, next) {
         err: [],
     }
 
-    if (!title) {
-        responseErr.err.push('Post needs a title');
-    }
     if (!content) {
-        responseErr.err.push('Post needs content');
+        responseErr.err.push('Comment needs content');
     }
 
     if (responseErr.err.length === 0) {
-        const [rows] = await promisePool.query("INSERT INTO hl21comments (authorId, postId, content) VALUES (?, ?, ?)", [req.session.userId, post, content]);
+        //sanitize
+        const sanitize = (str) => {
+            let temp = str.trim();
+            temp = validator.stripLow(temp);
+            temp = validator.escape(temp);
+            return temp;
+        };
+        if (content) sanitizedBody = sanitize(content);
+
+
+        const [rows] = await promisePool.query("INSERT INTO hl21comments (authorId, postId, content) VALUES (?, ?, ?)", 
+        [req.session.userId, post, sanitizedBody]);
         res.redirect('/post/' + post + '');
     } else {
         res.json(responseErr.err);

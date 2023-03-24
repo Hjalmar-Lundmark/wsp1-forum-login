@@ -14,9 +14,9 @@
 
 {% if error %}
 <ul>
-    {% for thing in error %}
+    {% for row in error %}
     <li>
-        {{ thing.err }}
+        {{ row.err }}
     </li>
     {% endfor %}
 </ul>

@@ -23,3 +23,5 @@ Vad ska hända med posts om användaren tar bort sitt konto?
 Denna lektion har jag: Ändrat i navbar för att vissa olika saker om användaren är inloggad eller inte. Sett till att användare måste vara inloggade för att posta eller kommentera. Många små ändringar. Flyttade `create comment` till under posts. 
 
 Nästa lektion: SASS, gör klar comment, 
+
+24/3: Förra lektionen fixade jag att navbaren vissar bara relevanta knappar för när användaren är inloggad eller inte och jag flyttade också kommentar funktion. Nu idag ska jag göra lite SASS för att de ska se bättre ut, lägga till tvättning av data och mer. 

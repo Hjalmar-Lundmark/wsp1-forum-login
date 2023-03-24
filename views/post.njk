@@ -21,6 +21,7 @@
 {% endfor %}
 
 {% if loggedIn %}
+<div class="commentForm">
 <form action="/comment" method="post">
     <h1>Make a Comment</h1>
     <label for="author">Logged in as: {{ user }}</label>
@@ -31,6 +32,7 @@
     <textarea name="content" id="content" rows="3"></textarea>
     <button type="submit">Send</button>
 </form>
+</div>
 {% endif %}
 
 
