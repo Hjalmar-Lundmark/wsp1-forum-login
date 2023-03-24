@@ -1,6 +1,18 @@
 {% extends "layout.njk" %}
-{% block  content %}
+{% block content %}
 
+{% if error.err %}
+<div class="error">
+    <ul>
+        <h3>Errors</h3>
+        {% for row in error.err %}
+        <li>
+            {{ row }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
 
 <form action="/new" method="post">
     <h1>Make a Post</h1>
@@ -11,15 +23,5 @@
     <textarea name="content" id="content" rows="10"></textarea>
     <button type="submit">Send</button>
 </form>
-
-{% if error %}
-<ul>
-    {% for row in error %}
-    <li>
-        {{ row.err }}
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
 
 {% endblock %}

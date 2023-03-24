@@ -12,4 +12,17 @@
     <button type="submit">Register</button>
 </form>
 
+{% if error.err %}
+<div class="error">
+    <ul>
+        <h3>Errors</h3>
+        {% for row in error.err %}
+        <li>
+            {{ row }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 {% endblock %}

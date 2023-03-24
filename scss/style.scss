@@ -139,3 +139,23 @@ footer {
 .commentForm {
     margin-top: 1.5rem;
 }
+
+.error {
+    background-color: red;
+    border: solid 3px black;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.logoutButtonNav {
+    border: none;
+
+    > button {
+        border: none;
+        background-color: lightskyblue;
+        cursor: pointer;
+        padding: 0;
+        text-decoration: underline;
+        color: -webkit-link;
+    }
+}
