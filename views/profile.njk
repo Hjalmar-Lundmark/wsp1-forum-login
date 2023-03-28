@@ -1,20 +1,24 @@
 {% extends "layout.njk" %}
-{% block  content %}
-<main class="container mt-3">
+{% block content %}
+<main>
     <h1>Hello {{ user }}</h1>
     <ul>
         <li>
-            <h2>{{ user }}'s {{ title }}</h2>
-            {{ info[0].Desc }} <br>
-            <a href="/bio">Update bio</a>
-            <h6>Account created: {{ info[0].createdAt }}</h6>
+            <div class="postContent">
+                <h2>{{ user }}'s {{ title }}</h2>
+                {{ info[0].Desc }} <br>
+                <a href="/bio">Update bio</a>
+                <h6>Account created: {{ info[0].createdAt }}</h6>
+            </div>
         </li>
     </ul>
-    <form action="/logout" method="POST">
-        <button type="submit" id="logout">Logout</button>
-    </form>
-    <form action="/delete" method="POST">
-        <button type="submit">Delete Account</button>
-    </form>
+    <div class="pButtons">
+        <form action="/logout" method="POST" class="pForm">
+            <button type="submit" id="logout">Logout</button>
+        </form>
+        <form action="/delete" method="POST" class="pForm deleteButton">
+            <button type="submit">Delete Account</button>
+        </form>
+    </div>
 </main>
-{% endblock %} 
+{% endblock %}

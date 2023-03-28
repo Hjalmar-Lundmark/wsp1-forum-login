@@ -4,9 +4,8 @@
 <div class="commentForm">
 <form action="/bio" method="post">
     <h1>{{ user }}'s {{ title }}</h1>
-    <label for="bio">Bio</label>
-    <textarea name="bio" id="bio" rows="3"></textarea>
-    <button type="submit">Send</button>
+    <textarea name="bio" id="bio" rows="8">{{ info[0].Desc }}</textarea>
+    <button type="submit">Update</button>
 </form>
 </div>
 

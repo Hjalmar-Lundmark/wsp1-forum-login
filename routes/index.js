@@ -174,7 +174,7 @@ router.get('/bio', async function (req, res, next) {
     if(req.session.LoggedIn) {
         const [info] = await promisePool.query("SELECT hl21users.id, hl21users.name, hl21users.Desc, hl21users.createdAt FROM hl21users WHERE name=?", req.session.user);
         return res.render('bio.njk', {
-            title: 'Profiles bio',
+            title: 'bio',
             user: req.session.user,
             info,
             loggedIn: req.session.LoggedIn,
@@ -184,6 +184,11 @@ router.get('/bio', async function (req, res, next) {
     }
 });
 
+router.post('/bio', async function (req, res, next) {
+    const { bio } = req.body;
+    const [row] = await promisePool.query("UPDATE hl21users SET Desc=? WHERE name=?", [bio, req.session.user]);
+    res.redirect('/profile');
+});
 
 
 //GET and POST login
@@ -231,6 +236,7 @@ router.post('/login', async function (req, res, next) {
         res.redirect('/login');
     }
 });
+
 
 //GET and POST register
 router.get('/register', async function (req, res) {
@@ -280,6 +286,7 @@ router.post('/register', async function (req, res) {
         res.redirect('/register');
     }
 });
+
 
 //Delete account
 router.post('/delete', async function (req, res, next) {

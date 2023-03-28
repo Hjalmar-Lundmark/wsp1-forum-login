@@ -266,4 +266,18 @@ footer > * > p > a {
   color: -webkit-link;
 }
 
+.pForm {
+  width: fit-content;
+}
+
+.pButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.deleteButton {
+  margin-top: 0.5rem;
+}
+
 /*# sourceMappingURL=style.css.map */
