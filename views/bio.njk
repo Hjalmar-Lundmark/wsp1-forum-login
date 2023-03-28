@@ -1,0 +1,13 @@
+{% extends "layout.njk" %}
+{% block  content %}
+
+<div class="commentForm">
+<form action="/bio" method="post">
+    <h1>{{ user }}'s {{ title }}</h1>
+    <label for="bio">Bio</label>
+    <textarea name="bio" id="bio" rows="3"></textarea>
+    <button type="submit">Send</button>
+</form>
+</div>
+
+{% endblock %} 

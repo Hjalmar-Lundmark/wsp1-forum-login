@@ -251,7 +251,6 @@ footer > * > p > a {
 .error {
   background-color: red;
   border: solid 3px black;
-  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 

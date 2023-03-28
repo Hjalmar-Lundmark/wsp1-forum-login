@@ -18,9 +18,9 @@ router.use(session({
     LoggedIn: false,
 }));
 var validator = require('validator');
-let responseErr = {
-}
+let responseErr = {}
 
+// GET forum posts
 router.get('/', async function (req, res, next) {
     const [rows] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.authorId = hl21users.id ORDER BY hl21forum.id DESC");
 
@@ -32,12 +32,28 @@ router.get('/', async function (req, res, next) {
     });
 });
 
+/* remove?
 router.get('/nav', async function (req, res, next) {
     res.render('nav.njk', {
         user: req.session.user,
         loggedIn: req.session.LoggedIn,
     })
 })
+*/
+
+// GET and POST for making a new post
+router.get('/new', async function (req, res, next) {
+    if (!req.session.LoggedIn) {
+        return res.redirect('/login');
+    } else {
+        res.render('new.njk', {
+            title: 'Make a Post',
+            user: req.session.user,
+            loggedIn: req.session.LoggedIn,
+            error: responseErr,
+        });
+    }
+});
 
 router.post('/new', async function (req, res, next) {
     const { title, content } = req.body;
@@ -76,19 +92,21 @@ router.post('/new', async function (req, res, next) {
     }
 });
 
-router.get('/new', async function (req, res, next) {
-    if (!req.session.LoggedIn) {
-        return res.redirect('/login');
-    } else {
-        res.render('new.njk', {
-            title: 'Make a Post',
-            user: req.session.user,
-            loggedIn: req.session.LoggedIn,
-            error: responseErr,
-        });
-    }
-});
+// GET and POST for loading post w/comments and posting a comment
+router.get('/post/:id', async (req, res) => {
+    const postId = req.params.id;
+    const [post] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.id=? AND hl21forum.authorId = hl21users.id", postId); //Works
+    const [comments] = await promisePool.query("SELECT hl21comments.*, hl21users.name FROM hl21comments JOIN hl21users WHERE postId=? AND hl21comments.authorId = hl21users.id", postId);
 
+    res.render('post.njk', {
+        title: 'Post ' + postId,
+        post: post[0],
+        comments,
+        loggedIn: req.session.LoggedIn,
+        user: req.session.user,
+        error: responseErr,
+    });
+});
 
 router.post('/comment', async function (req, res, next) {
     const { post, content } = req.body;
@@ -119,6 +137,8 @@ router.post('/comment', async function (req, res, next) {
     }
 });
 
+// Individual page for posting comments
+/* remove?
 router.get('/comment', async function (req, res, next) {
     if (!req.session.LoggedIn) {
         return res.redirect('/login');
@@ -132,33 +152,9 @@ router.get('/comment', async function (req, res, next) {
         });
     }
 });
+*/
 
-router.get('/post/:id', async (req, res) => {
-    const postId = req.params.id;
-    const [post] = await promisePool.query("SELECT hl21forum.*, hl21users.name FROM hl21forum JOIN hl21users WHERE hl21forum.id=? AND hl21forum.authorId = hl21users.id", postId); //Works
-    const [comments] = await promisePool.query("SELECT hl21comments.*, hl21users.name FROM hl21comments JOIN hl21users WHERE postId=? AND hl21comments.authorId = hl21users.id", postId);
-
-    res.render('post.njk', {
-        title: 'Post ' + postId,
-        post: post[0],
-        comments,
-        loggedIn: req.session.LoggedIn,
-        user: req.session.user,
-        error: responseErr,
-    });
-});
-
-router.get('/login', function (req, res, next) {
-    if (req.session.LoggedIn) {
-        return res.redirect('/profile');
-    } else {
-        res.render('form.njk', {
-            title: 'Login',
-            error: responseErr,
-        });
-    }
-});
-
+//GET profile
 router.get('/profile', async function (req, res, next) {
     if (req.session.LoggedIn) {
         const [info] = await promisePool.query("SELECT hl21users.id, hl21users.name, hl21users.Desc, hl21users.createdAt FROM hl21users WHERE name=?", req.session.user);
@@ -170,6 +166,35 @@ router.get('/profile', async function (req, res, next) {
         });
     } else {
         return res.status(401).send("Access denied"); //TODO: fix 
+    }
+});
+
+// GET and POST for updating your profiles bio
+router.get('/bio', async function (req, res, next) {
+    if(req.session.LoggedIn) {
+        const [info] = await promisePool.query("SELECT hl21users.id, hl21users.name, hl21users.Desc, hl21users.createdAt FROM hl21users WHERE name=?", req.session.user);
+        return res.render('bio.njk', {
+            title: 'Profiles bio',
+            user: req.session.user,
+            info,
+            loggedIn: req.session.LoggedIn,
+        });
+    } else {
+        return res.status(401).send("Access denied"); //TODO: fix
+    }
+});
+
+
+
+//GET and POST login
+router.get('/login', function (req, res, next) {
+    if (req.session.LoggedIn) {
+        return res.redirect('/profile');
+    } else {
+        res.render('login.njk', {
+            title: 'Login',
+            error: responseErr,
+        });
     }
 });
 
@@ -207,25 +232,7 @@ router.post('/login', async function (req, res, next) {
     }
 });
 
-router.post('/delete', async function (req, res, next) {
-    if (req.session.LoggedIn) {
-        req.session.LoggedIn = false;
-        await promisePool.query('DELETE FROM hl21users WHERE name=?', req.session.user);
-        res.redirect('/register');
-    } else {
-        return res.status(401).send("Access denied"); //TODO
-    }
-});
-
-router.post('/logout', async function (req, res, next) {
-    if (req.session.LoggedIn) {
-        req.session.LoggedIn = false;
-        res.redirect('/login');
-    } else {
-        return res.status(401).send("Access denied"); //TODO
-    }
-});
-
+//GET and POST register
 router.get('/register', async function (req, res) {
     if (req.session.LoggedIn) {
         return res.redirect('/profile');
@@ -267,19 +274,42 @@ router.post('/register', async function (req, res) {
             const [users] = await promisePool.query("SELECT * FROM hl21users WHERE name=?", username);
             req.session.userId = users[0].id;
             req.session.LoggedIn = true;
-            return res.redirect('/profile');
+            return res.redirect('/profile'); // Logs the user in after account is created
         });
     } else {
         res.redirect('/register');
     }
 });
 
+//Delete account
+router.post('/delete', async function (req, res, next) {
+    if (req.session.LoggedIn) {
+        req.session.LoggedIn = false;
+        await promisePool.query('DELETE FROM hl21users WHERE name=?', req.session.user);
+        res.redirect('/register');
+    } else {
+        return res.status(401).send("Access denied"); //TODO
+    }
+});
+
+//Log out
+router.post('/logout', async function (req, res, next) {
+    if (req.session.LoggedIn) {
+        req.session.LoggedIn = false;
+        res.redirect('/login');
+    } else {
+        return res.status(401).send("Access denied"); //TODO
+    }
+});
+
+
+/* // Returns your crypted pwd
 router.get('/crypt/:pwd', async function (req, res, next) {
     const pwd = req.params.pwd;
     await bcrypt.hash(pwd, 10, function (err, hash) {
         return res.json({ hash });
     });
 });
-
+*/
 
 module.exports = router;

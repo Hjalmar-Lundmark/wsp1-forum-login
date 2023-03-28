@@ -25,6 +25,9 @@ Denna lektion har jag: Ändrat i navbar för att vissa olika saker om användare
 
 Nästa lektion: SASS, gör klar comment, 
 
-24/3: Förra lektionen fixade jag att navbaren vissar bara relevanta knappar för när användaren är inloggad eller inte och jag flyttade också kommentar funktion. Nu idag ska jag göra lite SASS för att de ska se bättre ut, lägga till tvättning av data och jobba med errorhantering. Tror inte det blir något problem eller hinder. 
+24/3: Förra lektionen fixade jag att navbaren visar bara relevanta knappar för när användaren är inloggad eller inte och jag flyttade också kommentar funktion. Nu idag ska jag göra lite SASS för att de ska se bättre ut, lägga till tvättning av data och jobba med errorhantering. Tror inte det blir något problem eller hinder. 
 
 Denna lektion har jag ändrat i SASS för att få knappar och vissa andra saker att se bättre ut, jag har förbättrat error-feedback användaren får från fel i att skapa post, etc. Jag har också skaffat ett npm paket för att tvätta data som åker in i databasen och byggt lite kod för att det ska fungera. 
+
+28/3: Förra lektionen lade jag till mer säkerhet och tvättning av data. Jag förbättrade error-hanteringen och ändrade i sass. Idag ska jag bland annat försöka fixa en bug med error-hanteringen, formatera upp min route fil så den är lättare att läsa och lägga till en funktion/sida för att ändra sin profils bio. Borde inte vara några större problem. 
+
