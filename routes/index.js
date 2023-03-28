@@ -187,7 +187,7 @@ router.get('/bio', async function (req, res, next) {
 router.post('/bio', async function (req, res, next) {
     const { bio } = req.body;
     const [row] = await promisePool.query("UPDATE hl21users SET Desc=? WHERE name=?", [bio, req.session.user]);
-    res.redirect('/profile');
+    res.redirect('/profile'); // TODO: fix error from SQL code
 });
 
 

@@ -25,6 +25,10 @@ router.get('/:id', async function (req, res, next) {
     const userNr = req.params.id;
     const [user] = await promisePool.query("SELECT hl21users.id, hl21users.name, hl21users.Desc, hl21users.createdAt FROM hl21users WHERE id=?", userNr);
     
+    if (user[0].id === req.session.userId) {
+        return res.redirect('/profile');
+    }
+
     res.render('user.njk', {
         users: user[0],
         title: 'User',
