@@ -1,24 +1,22 @@
-# Planering
+# Planering - Forum med login
 
 ## Forum
-Mitt forum börjar med ett flöde av posts, en navbar som innehåller knappar till att logga in och registrera konto; och en footer för copyright och link till repot på github. Posterna kna man gå in på och se kommentarer vare sig man är inloggad eller inte, men om man har loggat in så kan man skapa en kommentar där. Alla posts har en skapare, vilket genom att klicka på det namnet kan man ta sig till dens profil. Användaren loggar in eller skapar konto genom att klicka på den respektiva linken där man skriver in användarnamn, lösenord, etc och blir inloggad om allt stämmer. När användaren är inloggad så förändras linkarna i navbaren till att innehålla knapp till att skapa en egen post, gå till sin profil och logga-ut. I profilen kan användaren se och ändra sin bio/deskription, logga ut eller ta bort sitt konto. Användaren kan skapa en post genom att vara inloggad, gå till skapa-post sidan och fylla i fälten. 
+Mitt forum börjar med ett flöde av posts, en navbar som innehåller knappar till att logga in och registrera konto; och en footer för copyright och link till repot på github. Posterna kan man gå in på och se kommentarer vare sig man är inloggad eller inte, men om man har loggat in så kan man skapa en kommentar där. Alla posts har en skapare, vilket genom att klicka på det namnet kan man ta sig till dens profil. Användaren loggar in eller skapar konto genom att klicka på den respektiva linken där man skriver in användarnamn, lösenord, etc och blir inloggad om allt stämmer. När användaren är inloggad så förändras linkarna i navbaren till att innehålla knapp till att skapa en egen post, gå till sin profil och logga-ut. I profilen kan användaren se och ändra sin bio/deskription, logga ut eller ta bort sitt konto. Användaren kan skapa en post genom att vara inloggad, gå till skapa-post sidan och fylla i fälten. 
 
-Att ta bort post eller kommentar jobbas hårt på och kommer definitivt komma i en framtida uppdatering. 
+Att ta bort post eller kommentar jobbas hårt på och kommer definitivt komma i en framtida uppdatering. Om en användare tar bort sitt konto så kommer dess posts och kommentarer inte synas. 
 
 Stilmässigt tänker jag mig en mörk färg för bakgrund och en ljus färg för inuti posts så de står ut från bakgrunden. Footern vill jag ha svart med vit text för det passar bra. Navbaren kommer vara en passande färg. 
 
 ## Att göra lista
 - &#9745; Se till att login, register, etc fungerar. 
-- &#9744; Kolla igenom koden och förbättra vissa delar.
+- &#9745; Kolla igenom koden och förbättra vissa delar.
 - &#9745; Ändra post och comment forms.
 - &#9745; Hantera errors bättre. 
 - &#9745; Js i navigation för att ta bort 'login' knapp när man är inloggad och ta bort 'create post' knapp när användare inte är inloggad, med mera. 
-- &#9745; User-info i db
+- &#9745; Mer info om User i db
 - &#9745; Update-func för user-bio
 - &#9744; Delete-func för comments&posts
-
-Vad ska jag göra med den nuvarande 'user page' som suger? 
-Vad ska hända med posts om användaren tar bort sitt konto?
+- &#9744; Fixa bug(?) med att posts och kommentarer av en deletad user inte syns; eller ta bort dem från db. 
 
 
 ## Loggbok
@@ -26,7 +24,7 @@ Vad ska hända med posts om användaren tar bort sitt konto?
 
 17/3: Fick login, register och det att fungera, la till `createdAt` och `description` för users i db, ändrade i njk enligt de additionerna. 
 
-21/3: &#9745;Jag ska fixa post och comment till att man måste vara inloggad. 
+21/3: Idag ska jag ska fixa post och comment till att man måste vara inloggad. 
 
 Denna lektion har jag: Ändrat i navbar för att vissa olika saker om användaren är inloggad eller inte. Sett till att användare måste vara inloggade för att posta eller kommentera. Många små ändringar. Flyttade `create comment` till under posts. 
 
@@ -40,4 +38,6 @@ Denna lektion har jag ändrat i SASS för att få knappar och vissa andra saker 
 
 Idag har jag fixat en bugg från error-hanteringen, laggt till en sida och funktion för att redigera sin profils bio. Jag har också formatterat och flyttat runt i min primära route-fil för att göra det lättare att läsa och hitta det man behöver. Nästa lektion ska jag bland annat fixa en bug i update för bio. 
 
-31/3: Förra lektionen gjorde jag en function för update på profilen och nu idag ska jag börja med att bugfixa den snabbt. 
+31/3: Förra lektionen gjorde jag en function för update på profilen och nu idag ska jag börja med att bugfixa den snabbt. Sedan tänkte jag kolla över delete funktionen och se att den fungerar som den ska. Ett hinder var att jag hade namngivet en column i databasen till samma namn som en funktion i SQL vilket gav ett error till jag satte back-tics(`) runt ordet i js. 
+
+Jag har idag fixat buggen som nämns ovan, 

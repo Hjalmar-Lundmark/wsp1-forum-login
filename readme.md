@@ -1,2 +1,6 @@
-# Forum med Login
+# Forum med login
 Ett forum där användare kan skapa konto och logga in, för att sedan skapa text-posts och kommentarer till dem. 
+
+Forumet börjar med ett flöde av posts, en navbar som innehåller knappar till att logga in och registrera konto; och en footer för copyright och link till repot på github. Posterna kan man gå in på och se kommentarer vare sig man är inloggad eller inte, men om man har loggat in så kan man skapa en kommentar där. Alla posts har en skapare, vilket genom att klicka på det namnet kan man ta sig till dens profil. Användaren loggar in eller skapar konto genom att klicka på den respektiva linken där man skriver in användarnamn, lösenord, etc och blir inloggad om allt stämmer. När användaren är inloggad så förändras linkarna i navbaren till att innehålla knapp till att skapa en egen post, gå till sin profil och logga-ut. I profilen kan användaren se och ändra sin bio/deskription, logga ut eller ta bort sitt konto. Användaren kan skapa en post genom att vara inloggad, gå till skapa-post sidan och fylla i fälten. 
+
+Att ta bort post eller kommentar jobbas hårt på och kommer definitivt komma i en framtida uppdatering. Om en användare tar bort sitt konto så kommer dess posts och kommentarer inte synas. 

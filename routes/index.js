@@ -160,7 +160,7 @@ router.get('/bio', async function (req, res, next) {
 router.post('/bio', async function (req, res, next) {
     const { bio } = req.body;
     const [row] = await promisePool.query("UPDATE hl21users SET `Desc`=? WHERE name=?", [bio, req.session.user]);
-    res.redirect('/profile'); // idk why I need tics around Desc but not anything else ^
+    res.redirect('/profile'); // ^ I need tics around Desc because there already exists a DESC in SQL ^
 });
 
 
@@ -285,14 +285,5 @@ router.post('/logout', async function (req, res, next) {
     }
 });
 
-
-/* // Returns your crypted pwd
-router.get('/crypt/:pwd', async function (req, res, next) {
-    const pwd = req.params.pwd;
-    await bcrypt.hash(pwd, 10, function (err, hash) {
-        return res.json({ hash });
-    });
-});
-*/
 
 module.exports = router;

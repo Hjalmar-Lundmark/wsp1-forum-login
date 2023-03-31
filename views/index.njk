@@ -6,7 +6,8 @@
     {% for row in rows %}
     <li>
         <div class="postContent">
-            <p>User: <a href="/user/{{ row.authorId }}">{{ row.name }}</a></p>
+            <p>User: {% if row.name %}<a href="/user/{{ row.authorId }}">{{ row.name }}</a>
+            {% else %}[Deleted user]{% endif %}</p>
             <h2>{{ row.title }}</h2>
             <p>{{ row.content }}</p>
             <h6>Posted {{ row.createdAt }}</h6>
