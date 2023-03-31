@@ -4,7 +4,8 @@
   "description": "## Vad ska du göra?",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon -e njk,js app.js & npm run scss",
+    "dev": "nodemon -e njk,js app.js & npm run scss",
+    "start": "node app.js",
     "scss": "sass --watch scss:public/css"
   },
   "keywords": [],

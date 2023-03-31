@@ -17,6 +17,7 @@ Stilmässigt tänker jag mig en mörk färg för bakgrund och en ljus färg för
 - &#9745; Update-func för user-bio
 - &#9744; Delete-func för comments&posts
 - &#9744; Fixa bug(?) med att posts och kommentarer av en deletad user inte syns; eller ta bort dem från db. 
+- &#9744; Likes/dislikes funktion
 
 
 ## Loggbok
@@ -40,4 +41,4 @@ Idag har jag fixat en bugg från error-hanteringen, laggt till en sida och funkt
 
 31/3: Förra lektionen gjorde jag en function för update på profilen och nu idag ska jag börja med att bugfixa den snabbt. Sedan tänkte jag kolla över delete funktionen och se att den fungerar som den ska. Ett hinder var att jag hade namngivet en column i databasen till samma namn som en funktion i SQL vilket gav ett error till jag satte back-tics(`) runt ordet i js. 
 
-Jag har idag fixat buggen som nämns ovan, 
+Jag har idag fixat buggen som nämns ovan, hostat på Glitch och lite små ändringar i koden. 
