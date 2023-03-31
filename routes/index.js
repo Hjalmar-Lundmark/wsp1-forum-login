@@ -32,15 +32,6 @@ router.get('/', async function (req, res, next) {
     });
 });
 
-/* remove?
-router.get('/nav', async function (req, res, next) {
-    res.render('nav.njk', {
-        user: req.session.user,
-        loggedIn: req.session.LoggedIn,
-    })
-})
-*/
-
 // GET and POST for making a new post
 router.get('/new', async function (req, res, next) {
     if (!req.session.LoggedIn) {
@@ -87,7 +78,6 @@ router.post('/new', async function (req, res, next) {
             [req.session.userId, sanitizedTitle, sanitizedBody]);
         res.redirect('/post/' + rows.insertId + '');
     } else {
-        //res.json(responseErr.err);
         res.redirect('/new');
     }
 });
@@ -137,23 +127,6 @@ router.post('/comment', async function (req, res, next) {
     }
 });
 
-// Individual page for posting comments
-/* remove?
-router.get('/comment', async function (req, res, next) {
-    if (!req.session.LoggedIn) {
-        return res.redirect('/login');
-    } else {
-        const [posts] = await promisePool.query("SELECT * FROM hl21forum");
-        res.render('comment.njk', {
-            title: 'Make a Comment',
-            posts,
-            user: req.session.user,
-            loggedIn: req.session.LoggedIn,
-        });
-    }
-});
-*/
-
 //GET profile
 router.get('/profile', async function (req, res, next) {
     if (req.session.LoggedIn) {
@@ -165,7 +138,7 @@ router.get('/profile', async function (req, res, next) {
             loggedIn: req.session.LoggedIn,
         });
     } else {
-        return res.status(401).send("Access denied"); //TODO: fix 
+        return res.redirect('/login');
     }
 });
 
@@ -180,14 +153,14 @@ router.get('/bio', async function (req, res, next) {
             loggedIn: req.session.LoggedIn,
         });
     } else {
-        return res.status(401).send("Access denied"); //TODO: fix
+        return res.redirect('/login');
     }
 });
 
 router.post('/bio', async function (req, res, next) {
     const { bio } = req.body;
-    const [row] = await promisePool.query("UPDATE hl21users SET Desc=? WHERE name=?", [bio, req.session.user]);
-    res.redirect('/profile'); // TODO: fix error from SQL code
+    const [row] = await promisePool.query("UPDATE hl21users SET `Desc`=? WHERE name=?", [bio, req.session.user]);
+    res.redirect('/profile'); // idk why I need tics around Desc but not anything else ^
 });
 
 
@@ -261,6 +234,9 @@ router.post('/register', async function (req, res) {
     }
     if (password === "") {
         responseErr.err.push('Password is required');
+    }
+    if (password.length < 8) {
+        responseErr.err.push('Password needs atleast 8 characters');
     }
     if (password !== passwordConfirmation) {
         responseErr.err.push('Passwords need to match');

@@ -39,3 +39,5 @@ Denna lektion har jag ändrat i SASS för att få knappar och vissa andra saker 
 28/3: Förra lektionen lade jag till mer säkerhet och tvättning av data. Jag förbättrade error-hanteringen och ändrade i sass. Idag ska jag bland annat försöka fixa en bug med error-hanteringen, formatera upp min route fil så den är lättare att läsa och lägga till en funktion/sida för att ändra sin profils bio. Borde inte vara några större problem. 
 
 Idag har jag fixat en bugg från error-hanteringen, laggt till en sida och funktion för att redigera sin profils bio. Jag har också formatterat och flyttat runt i min primära route-fil för att göra det lättare att läsa och hitta det man behöver. Nästa lektion ska jag bland annat fixa en bug i update för bio. 
+
+31/3: Förra lektionen gjorde jag en function för update på profilen och nu idag ska jag börja med att bugfixa den snabbt. 
