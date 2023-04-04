@@ -18,6 +18,7 @@ Stilmässigt tänker jag mig en mörk färg för bakgrund och en ljus färg för
 - &#9744; Delete-func för comments&posts
 - &#9744; Fixa bug(?) med att posts och kommentarer av en deletad user inte syns; eller ta bort dem från db. 
 - &#9744; Likes/dislikes funktion
+- &#9744; Fixa att användare måste skriva in lösenord för att ta bort sitt konto. 
 
 
 ## Loggbok
@@ -42,3 +43,7 @@ Idag har jag fixat en bugg från error-hanteringen, laggt till en sida och funkt
 31/3: Förra lektionen gjorde jag en function för update på profilen och nu idag ska jag börja med att bugfixa den snabbt. Sedan tänkte jag kolla över delete funktionen och se att den fungerar som den ska. Ett hinder var att jag hade namngivet en column i databasen till samma namn som en funktion i SQL vilket gav ett error till jag satte back-tics(`) runt ordet i js. 
 
 Jag har idag fixat buggen som nämns ovan, hostat på Glitch och lite små ändringar i koden. 
+
+4/4: Idag har jag skrivit PM, ändrat i SASS, 
+
+Jag har också ändrat så att användaren INTE längre loggas ut av att stänga ner sidan, men jag vet inte om jag faktiskt vill ha automatisk inloggning. 

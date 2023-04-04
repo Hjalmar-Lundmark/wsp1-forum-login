@@ -203,6 +203,7 @@ main > ul > li {
   margin-top: 1rem;
   margin-bottom: 1rem;
   background-color: white;
+  border-radius: 25px;
 }
 
 form {
@@ -211,6 +212,7 @@ form {
   align-items: center;
   border: solid 3px red;
   background-color: lightgray;
+  border-radius: 25px;
 }
 
 select, input, textarea {
@@ -231,6 +233,7 @@ footer > * > p > a {
 .post {
   border: solid 3px red;
   background-color: white;
+  border-radius: 25px;
 }
 
 .comment {
@@ -238,6 +241,7 @@ footer > * > p > a {
   margin-left: 2rem;
   background-color: white;
   margin-top: 0.5rem;
+  border-radius: 25px;
 }
 
 .postContent {
@@ -265,9 +269,14 @@ footer > * > p > a {
   text-decoration: underline;
   color: -webkit-link;
 }
+.logoutButtonNav > button:hover {
+  background-color: red;
+  color: white;
+}
 
 .pForm {
   width: fit-content;
+  border-radius: 0;
 }
 
 .pButtons {

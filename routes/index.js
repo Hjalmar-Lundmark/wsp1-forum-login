@@ -15,7 +15,7 @@ router.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    LoggedIn: false,
+    //LoggedIn: false,      // when removed keeps the user logged in even after restarting the page
 }));
 var validator = require('validator');
 let responseErr = {}

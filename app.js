@@ -40,5 +40,5 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  LoggedIn: false,
+  //LoggedIn: false,  // when removed keeps the user logged in even after restarting the page
 }));
