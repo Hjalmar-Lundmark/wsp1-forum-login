@@ -271,7 +271,7 @@ router.post('/delete', async function (req, res, next) {
         await promisePool.query('DELETE FROM hl21users WHERE name=?', req.session.user);
         res.redirect('/register');
     } else {
-        return res.status(401).send("Access denied"); //TODO
+        return res.status(401).send("Access denied");
     }
 });
 
@@ -281,7 +281,7 @@ router.post('/logout', async function (req, res, next) {
         req.session.LoggedIn = false;
         res.redirect('/login');
     } else {
-        return res.status(401).send("Access denied"); //TODO
+        return res.status(401).send("Access denied");
     }
 });
 

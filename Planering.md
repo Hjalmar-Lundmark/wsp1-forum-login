@@ -8,6 +8,8 @@ Att ta bort post eller kommentar jobbas hårt på och kommer definitivt komma i 
 Stilmässigt tänker jag mig en mörk färg för bakgrund och en ljus färg för inuti posts så de står ut från bakgrunden. Footern vill jag ha svart med vit text för det passar bra. Navbaren kommer vara en passande färg. 
 
 ## Att göra lista
+\*Inte i ordning
+
 - &#9745; Se till att login, register, etc fungerar. 
 - &#9745; Kolla igenom koden och förbättra vissa delar.
 - &#9745; Ändra post och comment forms.
@@ -44,6 +46,6 @@ Idag har jag fixat en bugg från error-hanteringen, laggt till en sida och funkt
 
 Jag har idag fixat buggen som nämns ovan, hostat på Glitch och lite små ändringar i koden. 
 
-4/4: Idag har jag skrivit PM, ändrat i SASS, 
+4/4: Idag har jag skrivit PM och ändrat i SASS. 
 
 Jag har också ändrat så att användaren INTE längre loggas ut av att stänga ner sidan, men jag vet inte om jag faktiskt vill ha automatisk inloggning. 
