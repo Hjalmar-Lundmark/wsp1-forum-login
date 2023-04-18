@@ -9,4 +9,4 @@ Allt runt att implementera kod från grupparbetet har gått bra och utan problem
 Jag är nöjd med att jag har kunnat använda alla delar av CRUD i detta projekt, att jag har kunnat lägga in flera 'features' utöver vad uppgiften frågar för och att jag har kommit igenom större delen av att göra listan (även om jag har fortsatt lägga till i listan under arbetets gång). Sidans utseende är jag nöjd med, även då jag använder ett lite mer ovanligt färgschema. 
 
 ## Vad har gått mindre bra?
-Allt har gått bra så jag skulle inte säga att något har gåt mindre bra. Kanske att jag andrig använde socket i uppgiften men jag kommde inte på något bra sätt att använda det. 
+Allt har gått bra så jag skulle inte säga att något har gåt mindre bra. Kanske att jag andrig använde socket i uppgiften men jag kom inte på något bra sätt att använda det. 
